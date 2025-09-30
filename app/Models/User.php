@@ -43,14 +43,14 @@ class User extends Authenticatable
      */
     public function getProfilePhotoUrlAttribute()
     {
-        return $this->profile_photo_path 
+        return $this->profile_photo_path
             ? asset('storage/' . $this->profile_photo_path)
             : asset('images/default-profile.png'); // path default jika belum ada foto
     }
 
     // Relasi ke Order (pesanan)
     public function orders()
-    {   
+    {
         return $this->hasMany(Order::class);
     }
 }

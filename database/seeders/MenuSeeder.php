@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Models\Menu;
+use App\Models\Category;
 
 class MenuSeeder extends Seeder
 {
@@ -12,51 +15,21 @@ class MenuSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('menus')->insert([
-            [
-                'nama' => 'Nasi Goreng Spesial',
-                'kategori' => 'Makan Malam',
-                'deskripsi' => 'Nasi goreng dengan telur, ayam suwir, dan kerupuk.',
+        $categories = Category::all();
+
+        for ($i = 1; $i <= 10; $i++) {
+            $category = $categories->random();
+
+            $title = "Makanan " . $i . " - " . $category->name;
+            Menu::create([
+                'kategori_id' => $category->id,
+                'nama' => $title,
+                'deskripsi' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
                 'harga' => 25000,
                 'stok' => 20,
-                'gambar' => 'nasi_goreng.jpg',
-                'status' => 'Tersedia',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'nama' => 'Ayam Bakar Madu',
-                'kategori' => 'Makan Siang',
-                'deskripsi' => 'Ayam bakar dengan bumbu madu manis gurih.',
-                'harga' => 30000,
-                'stok' => 15,
-                'gambar' => 'ayam_bakar.jpg',
-                'status' => 'Tersedia',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'nama' => 'Es Teh Manis',
-                'kategori' => 'Minuman',
-                'deskripsi' => 'Teh manis segar dengan es batu.',
-                'harga' => 8000,
-                'stok' => 50,
-                'gambar' => 'es_teh.jpg',
-                'status' => 'Tersedia',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'nama' => 'Puding Cokelat',
-                'kategori' => 'Dessert',
-                'deskripsi' => 'Puding cokelat lembut dengan saus vla.',
-                'harga' => 12000,
-                'stok' => 10,
-                'gambar' => 'puding_cokelat.jpg',
-                'status' => 'Tersedia',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-        ]);
+                'gambar' => null,
+                'status' => true,
+            ]);
+        }
     }
 }

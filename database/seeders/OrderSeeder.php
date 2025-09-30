@@ -12,13 +12,18 @@ class OrderSeeder extends Seeder
 {
     public function run(): void
     {
-        $user = User::where('role', 'pelanggan')->first();
+
+        $user = User::where('role', 'pelanggan')->get();
         $menu = Menu::first();
+
+        if (!$user || !$menu) {
+            return;
+        }
 
         $order = Order::create([
             'user_id' => $user->id,
-            'total' => 50000,
-            'status' => 'konfirmasi',
+            'total' => $menu->harga * 2,
+            'status' => 'pending',
             'metode_pembayaran' => 'gopay',
             'catatan' => 'Jangan pakai bawang',
             'alamat' => 'Jl. Contoh No. 123',
@@ -26,11 +31,10 @@ class OrderSeeder extends Seeder
             'no_telepon' => '08123456789',
         ]);
 
-        OrderItem::create([
-            'order_id' => $order->id,
+        $order->items()->create([
             'menu_id' => $menu->id,
             'jumlah' => 2,
-            'harga' => 25000,
+            'harga' => $menu->harga,
         ]);
     }
 }

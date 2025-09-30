@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
             'email' => 'kurir@dapurafdhol.com',
             'no_telepon' => '081234567891', // Nomor telepon kurir
             'password' => Hash::make('password123'),
-            'role' => 'kurir',
+            'role' => 'pelanggan',
         ]);
 
         User::create([

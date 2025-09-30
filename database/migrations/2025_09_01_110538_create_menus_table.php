@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->foreignId('kategori_id')->constrained('categories')->onDelete('cascade'); // relasi ke tabel categories
+            $table->string('kategori')->nullable();
+            $table->foreignId('kategori_id')->constrained('categories')->onDelete('cascade');
             $table->text('deskripsi')->nullable();
             $table->decimal('harga', 10, 2);
-            $table->integer('stok')->default(0); // ✅ kasih default biar tidak error saat insert
-            $table->string('gambar')->nullable(); // path upload gambar
+            $table->integer('stok')->default(0);
+            $table->string('gambar')->nullable();
             $table->enum('status', ['Tersedia', 'Tidak Tersedia'])->default('Tersedia');
             $table->timestamps();
         });
