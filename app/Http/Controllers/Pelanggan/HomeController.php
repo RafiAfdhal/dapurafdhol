@@ -47,7 +47,7 @@ class HomeController extends Controller
         return view('pelanggan.menu', compact('menus', 'kategoris', 'kategori', 'search'));
     }
 
-    // =======================
+  // =======================
     // KONTAK
     // =======================
     public function kirimKontak(Request $request)
@@ -57,18 +57,7 @@ class HomeController extends Controller
             'email' => 'required|email',
             'subjek' => 'nullable|string|max:255',
             'pesan' => 'required|string',
-            'g-recaptcha-response' => 'required'
         ]);
-
-        // verifikasi reCAPTCHA
-        $response = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => env('RECAPTCHA_SECRET_KEY'),
-            'response' => $request->input('g-recaptcha-response'),
-        ]);
-
-        if (!$response->json('success')) {
-            return back()->withErrors(['captcha' => 'Verifikasi reCAPTCHA gagal, coba lagi.']);
-        }
 
         PesanKontak::create($request->only('nama', 'email', 'subjek', 'pesan'));
 
