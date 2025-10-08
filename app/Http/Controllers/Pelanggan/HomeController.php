@@ -47,7 +47,7 @@ class HomeController extends Controller
         return view('pelanggan.menu', compact('menus', 'kategoris', 'kategori', 'search'));
     }
 
-    // =======================
+  // =======================
     // KONTAK
     // =======================
     public function kirimKontak(Request $request)
