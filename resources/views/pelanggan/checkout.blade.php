@@ -47,7 +47,7 @@
                         </p>
 
                         <!-- 🔗 Link ulasan -->
-                        <a href="{{ route('pelanggan.ulasan', $menu->id) }}" class="btn btn-sm btn-secondary mb-3">
+                        <a href="{{ route('pelanggan.ulasan', $menu->id) }}" class="btn btn-sm btn-warning mb-3">
                             <i class="bi bi-chat-dots"></i> Lihat Ulasan
                         </a>
 
