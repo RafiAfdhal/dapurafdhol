@@ -41,26 +41,27 @@
 
                                     <!-- 🔢 Update jumlah -->
                                     <form action="{{ route('pelanggan.cart.update', $item->id) }}" method="POST"
-                                        class="d-flex align-items-center mt-2">
+                                        class="d-flex align-items-center mt-2 quantity-form">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" name="action" value="decrease"
-                                            class="btn btn-outline-secondary btn-sm">
+                                        <button type="button" class="btn btn-outline-secondary btn-sm minus-btn">
                                             <i class="bi bi-dash"></i>
                                         </button>
                                         <input type="number" name="jumlah" value="{{ $item->jumlah }}" min="1"
                                             max="{{ $item->menu->stok }}"
-                                            class="form-control form-control-sm text-center mx-2" style="width: 60px;"
-                                            readonly>
-                                        <button type="submit" name="action" value="increase"
-                                            class="btn btn-outline-secondary btn-sm">
+                                            class="form-control form-control-sm text-center mx-2 qty-input"
+                                            style="width: 60px;" readonly>
+                                        <button type="button" class="btn btn-outline-secondary btn-sm plus-btn">
                                             <i class="bi bi-plus"></i>
                                         </button>
+
+                                        <!-- Hidden inputs buat sinkron jumlah -->
+                                        <input type="hidden" name="action" value="manual">
                                     </form>
                                 </div>
 
                                 <!-- Subtotal -->
-                                <div class="fw-bold text-warning ms-2">
+                                <div class="fw-bold text-warning ms-2 subtotal-text">
                                     Rp {{ number_format($subtotal, 0, ',', '.') }}
                                 </div>
                             </div>
@@ -69,8 +70,9 @@
                         <!-- Total -->
                         <div class="d-flex justify-content-between fw-bold fs-5 mt-3">
                             <span>Total:</span>
-                            <span class="text-success">Rp {{ number_format($total, 0, ',', '.') }}</span>
+                            <span class="text-success total-text">Rp {{ number_format($total, 0, ',', '.') }}</span>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -86,12 +88,14 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label">Nama Penerima</label>
-                                <input type="text" name="nama_penerima" class="form-control" required>
+                                <input type="text" name="nama_penerima" class="form-control"
+                                    value="{{ old('nama_penerima', auth()->user()->name) }}" required>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">No. Telepon</label>
-                                <input type="text" name="no_telepon" class="form-control" required>
+                                <input type="text" name="no_telepon" class="form-control"
+                                    value="{{ old('no_telepon', auth()->user()->no_telepon) }}" required>
                             </div>
 
                             <div class="mb-3">
@@ -115,7 +119,6 @@
                                 </select>
                             </div>
 
-                            <!-- Pilihan penagtaran -->
                             <div class="mb-3">
                                 <label class="form-label">Metode Pengantaran</label>
                                 <select name="metode_pengantaran" class="form-select" required>
@@ -124,7 +127,6 @@
                                     <option value="grabexpress">Grab Express</option>
                                 </select>
                             </div>
-
 
                             <button type="submit" class="btn btn-warning w-100 fw-bold">
                                 <i class="bi bi-bag-check"></i> Buat Pesanan
@@ -136,26 +138,107 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if (session('success'))
-        <script>
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil!',
-                text: '{{ session('success') }}',
-                timer: 2500,
-                showConfirmButton: false
-            });
-        </script>
-    @endif
+    {{-- 💡 SCRIPT TAMBAH-KURANG JUMLAH --}}
 
-    @if (session('error'))
-        <script>
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops!',
-                text: '{{ session('error') }}',
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const forms = document.querySelectorAll(".quantity-form");
+
+            function parseRupiah(text) {
+                return parseInt(text.replace(/\D/g, '')) || 0;
+            }
+
+            function formatRupiah(angka) {
+                return "Rp " + angka.toLocaleString('id-ID');
+            }
+
+            // 🔢 Hitung ulang total keseluruhan
+            function updateTotal() {
+                let total = 0;
+                document.querySelectorAll(".subtotal-text").forEach(el => {
+                    total += parseRupiah(el.textContent);
+                });
+
+                const totalElem = document.querySelector(".total-text"); // pastikan elemen total punya class ini
+                if (totalElem) totalElem.textContent = formatRupiah(total);
+            }
+
+            // 📨 Kirim ke backend tanpa reload
+            async function updateCart(form, action) {
+                const url = form.getAttribute('action');
+                const formData = new FormData(form);
+                formData.set('action', action);
+
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': form.querySelector('[name=_token]').value,
+                            'X-HTTP-Method-Override': 'PUT',
+                        },
+                        body: formData,
+                    });
+
+                    if (!response.ok) throw new Error('Gagal memperbarui keranjang');
+                    console.log('✅ Jumlah berhasil diupdate');
+                } catch (error) {
+                    console.error('❌ Error:', error);
+                }
+            }
+
+            forms.forEach(form => {
+                const minusBtn = form.querySelector(".minus-btn");
+                const plusBtn = form.querySelector(".plus-btn");
+                const qtyInput = form.querySelector(".qty-input");
+
+                const flexGrow = form.closest('.flex-grow-1');
+                const priceElem = flexGrow ? flexGrow.querySelector('small.text-muted') : null;
+                const subtotalElem = flexGrow ? flexGrow.nextElementSibling : null;
+                const hargaPerPorsi = priceElem ? parseRupiah(priceElem.innerText) : 0;
+
+                // ➕ Tambah porsi
+                plusBtn.addEventListener("click", async function() {
+                    let current = parseInt(qtyInput.value) || 0;
+                    const max = parseInt(qtyInput.getAttribute("max")) || 9999;
+                    if (current < max) {
+                        qtyInput.value = current + 1;
+
+                        // Update subtotal tampilan
+                        if (subtotalElem) {
+                            const newSubtotal = hargaPerPorsi * (current + 1);
+                            subtotalElem.textContent = formatRupiah(newSubtotal);
+                        }
+
+                        // Update total keseluruhan
+                        updateTotal();
+
+                        // Kirim ke backend
+                        await updateCart(form, 'increase');
+                    }
+                });
+
+                // ➖ Kurangi porsi
+                minusBtn.addEventListener("click", async function() {
+                    let current = parseInt(qtyInput.value) || 0;
+                    const min = parseInt(qtyInput.getAttribute("min")) || 1;
+                    if (current > min) {
+                        qtyInput.value = current - 1;
+
+                        // Update subtotal tampilan
+                        if (subtotalElem) {
+                            const newSubtotal = hargaPerPorsi * (current - 1);
+                            subtotalElem.textContent = formatRupiah(newSubtotal);
+                        }
+
+                        // Update total keseluruhan
+                        updateTotal();
+
+                        // Kirim ke backend
+                        await updateCart(form, 'decrease');
+                    }
+                });
             });
-        </script>
-    @endif
+        });
+    </script>
+
 @endsection
