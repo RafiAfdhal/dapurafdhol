@@ -57,12 +57,12 @@
                             @if(Auth::user()->profile_photo_path)
                             {{-- Jika ada foto --}}
                             <img src="{{ Auth::user()->profile_photo_url }}"
-                                alt="Avatar" class="rounded-circle border" width="38" height="38"
+                                alt="Avatar" class="rounded-circle border" width="45" height="45"
                                 style="object-fit: cover;">
                             @else
                             {{-- Jika tidak ada foto, tampilkan inisial --}}
                             <div class="rounded-circle border bg-secondary text-white d-flex align-items-center justify-content-center"
-                                style="width:38px; height:38px; font-weight:bold;">
+                                style="width:45px; height:45px; font-weight:bold;">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </div>
                             @endif
