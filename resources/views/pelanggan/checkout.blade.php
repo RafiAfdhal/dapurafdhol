@@ -17,9 +17,15 @@
                     @endif
                     <div class="card-body text-center">
                         <h5 class="card-title">{{ $menu->nama }}</h5>
-                        <p class="card-text text-warning fs-5">
+                        <p class="card-text text-warning fs-5" id="harga-text" data-harga="{{ $menu->harga }}">
                             Rp {{ number_format($menu->harga, 0, ',', '.') }} / porsi
                         </p>
+
+                        <!-- Tambahkan subtotal total harga -->
+                        <p class="fw-bold mt-2 text-success fs-5" id="total-harga">
+                            Total: Rp {{ number_format($menu->harga, 0, ',', '.') }}
+                        </p>
+
 
                         <!-- ⭐ Rating -->
                         <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
@@ -145,13 +151,26 @@
             const plusBtn = document.getElementById("plus-qty");
             const qtyInput = document.getElementById("quantity");
 
-            // hidden inputs
+            const hargaText = document.getElementById("harga-text");
+            const totalHarga = document.getElementById("total-harga");
+
             const jumlahCheckout = document.getElementById("jumlah_checkout");
             const jumlahCart = document.getElementById("jumlah_cart");
+
+            // ambil harga asli dari data attribute
+            const hargaPerPorsi = parseInt(hargaText.dataset.harga);
+
+            // fungsi update total harga
+            function updateTotal() {
+                const qty = parseInt(qtyInput.value);
+                const total = hargaPerPorsi * qty;
+                totalHarga.textContent = "Total: Rp " + total.toLocaleString('id-ID');
+            }
 
             function syncJumlah() {
                 jumlahCheckout.value = qtyInput.value;
                 jumlahCart.value = qtyInput.value;
+                updateTotal();
             }
 
             if (plusBtn && minusBtn) {
@@ -175,6 +194,9 @@
                     }
                 });
             }
+
+            // inisialisasi awal
+            updateTotal();
         });
     </script>
 @endpush
