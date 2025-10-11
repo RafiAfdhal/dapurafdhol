@@ -340,7 +340,7 @@ class HomeController extends Controller
         // update status jadi cancel
         $order->update(['status' => 'cancel']);
 
-        return back()->with('success', 'Pesanan berhasil dibatalkan dan stok dikembalikan.');
+        return back()->with('success', 'Pesanan berhasil dibatalkan.');
     }
 
     public function destroypesanan(Order $order)
@@ -357,7 +357,7 @@ class HomeController extends Controller
         $order->items()->delete();
         $order->delete();
 
-        return back()->with('success', 'Pesanan berhasil dihapus tanpa menghapus laporan.');
+        return back()->with('success', 'Pesanan berhasil dihapus.');
     }
 
 
