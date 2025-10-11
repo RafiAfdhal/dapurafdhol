@@ -699,7 +699,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: rgba(109, 76, 65, 0.6);
+        background-color: rgba(23, 19, 18, 0.6);
         z-index: -1;
     }
 
@@ -748,5 +748,7 @@
             transform: translateY(0);
         }
     }
+    
 
+    
 </style>
