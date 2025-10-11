@@ -301,4 +301,100 @@
               transform: scale(1);
           }
       }
+
+      /* ------------------- STYLES UNTUK HERO SECTION ------------------- */
+    .hero-section-showcase {
+        padding-top: 7rem;
+        padding-bottom: 5rem;
+        min-height: 80vh;
+    }
+    .hero-section-showcase h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 4rem;
+        font-weight: 800;
+        line-height: 1.1;
+        color: #FFB300; /* Aksen Oranye */
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        margin-bottom: 1.5rem;
+    }
+    .hero-section-showcase p {
+        font-size: 1.1rem;
+        color: #FBE9E7;
+        margin-bottom: 2rem;
+        line-height: 1.7;
+    }
+
+    /* Styling Gambar Utama dengan Efek 3D */
+    .hero-image-3d {
+        border: 10px solid rgba(255, 179, 0, 0.9);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+        border-radius: 20px;
+        transform: rotate(-3deg); /* Rotasi sedikit */
+        transition: transform 0.5s ease;
+    }
+    .hero-image-3d:hover {
+        transform: rotate(0deg) scale(1.03);
+    }
+    
+    /* Tombol Utama */
+    .btn-hero-primary {
+        padding: 16px 40px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        border-radius: 50px;
+        background-color: #FFB300;
+        color: #3E2723;
+        box-shadow: 0 5px 15px rgba(255, 179, 0, 0.5);
+    }
+    
+    /* ------------------- STYLES UNTUK GALERI MAKANAN ------------------- */
+    .gallery-section {
+        background-color: #FBE9E7; /* Latar belakang cokelat gelap */
+        padding: 5rem 0;
+        border-top: 5px solid #E67A00;
+    }
+    .gallery-section h2 {
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        color: #FFB300;
+        margin-bottom: 3rem;
+        text-align: center;
+    }
+    .menu-card {
+        background-color: #5D4037; /* Latar belakang kartu yang lebih terang dari body */
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        height: 100%; /* Memastikan tinggi kartu seragam */
+    }
+    .menu-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    }
+    .menu-card img {
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+    }
+    .menu-card-body {
+        padding: 1.5rem;
+        text-align: left;
+    }
+    .menu-card-body h5 {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 600;
+        color: #FBE9E7;
+        margin-bottom: 0.5rem;
+    }
+    .menu-card-body p {
+        color: #C0C0C0;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    .price-tag {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #FFB300;
+    }
   </style>
