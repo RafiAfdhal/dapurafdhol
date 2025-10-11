@@ -115,7 +115,7 @@ Route::middleware(['auth', 'role_admin'])
 
 /*
 |--------------------------------------------------------------------------
-| Area Pelanggan
+| Area Pelanggan kalau sudah login baru bisa akses
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'role_pelanggan'])
@@ -126,14 +126,6 @@ Route::middleware(['auth', 'role_pelanggan'])
         Route::get('/home', function () {
             return view('pelanggan.home');
         })->name('home');
-
-        // Menu
-        Route::get('/menu', [HomeController::class, 'menu'])->name('menu');
-
-        // Tentang
-        Route::get('/tentang', function () {
-            return view('pelanggan.tentang');
-        })->name('tentang');
 
         // Kontak
         Route::get('/kontak', function () {
@@ -173,4 +165,31 @@ Route::middleware(['auth', 'role_pelanggan'])
         Route::get('/profile', [HomeController::class, 'profile'])->name('profile');
         Route::put('/profile', [HomeController::class, 'updateProfile'])->name('profile.update');
         Route::delete('/profile/photo', [HomeController::class, 'deletePhoto'])->name('profile.deletePhoto');
+    });
+
+/*
+|--------------------------------------------------------------------------
+| Halaman Umum (Tanpa Login)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('pelanggan')
+    ->name('pelanggan.')
+    ->group(function () {
+
+        // Home (bebas diakses)
+        Route::get('/home', function () {
+            return view('pelanggan.home');
+        })->name('home');
+
+        // Menu (bebas diakses)
+        Route::get('/menu', [HomeController::class, 'menu'])->name('menu');
+
+        // Tentang
+        Route::get('/tentang', fn() => view('pelanggan.tentang'))->name('tentang');
+
+        // Kontak (form bisa diakses tapi kirim pesan butuh login)
+        Route::get('/kontak', fn() => view('pelanggan.kontak'))->name('kontak');
+        Route::post('/kontak/kirim', [HomeController::class, 'kirimKontak'])
+            ->middleware('auth')
+            ->name('kontak.kirim');
     });
