@@ -9,7 +9,13 @@
         <div class="row justify-content-center">
             <!-- Detail Menu -->
             <div class="col-md-5 mb-4">
-                <div class="card shadow-sm checkout-menu-card">
+                <div class="card shadow-sm checkout-menu-card position-relative">
+                    <!-- 🔙 Tombol Kembali di dalam gambar -->
+                    <a href="{{ url()->previous() }}"
+                        class="btn btn-outline-warning position-absolute top-0 start-0 m-3 rounded-circle shadow-sm"
+                        style="z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                        <i class="bi bi-arrow-left"></i>
+                    </a>
                     @if ($menu->gambar)
                         <img src="{{ asset('storage/' . $menu->gambar) }}" class="card-img-top" alt="{{ $menu->nama }}">
                     @else
