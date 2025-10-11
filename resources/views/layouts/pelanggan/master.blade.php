@@ -23,7 +23,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mb-2 mb-lg-0 gap-3 mx-auto">
+                <ul class="navbar-nav mb-2 mb-lg-0 gap-4 mx-auto">
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('pelanggan/home') ? 'active fw-bold text-warning' : '' }}"
                             href="{{ route('pelanggan.home') }}">Home</a>
@@ -45,11 +45,31 @@
                             href="{{ route('pelanggan.kontak') }}">Kontak</a>
                     </li>
                 </ul>
+                @php
+                    use App\Models\Cart;
 
-                <div class="d-flex align-items-center gap-3">
-                    <a href="{{ url('pelanggan/cart') }}" class="text-decoration-none">
-                        <i class="bi bi-cart cart-icon fs-5"></i>
-                    </a>
+                    // Pastikan user sudah login
+                    $cartCount = 0;
+                    if (Auth::check()) {
+                        $cart = Cart::with('items')->where('user_id', Auth::id())->first();
+                        $cartCount = $cart ? $cart->items->sum('jumlah') : 0;
+                    }
+                @endphp
+                    <div class="position-relative me-2">
+                        <a href="{{ route('pelanggan.cart.show') }}" class="text-decoration-none">
+                            <i class="bi bi-cart cart-icon fs-5"></i>
+
+                            @if ($cartCount > 0)
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger small shadow-sm"
+                                    style="font-size: 0.7rem;">
+                                    {{ $cartCount }}
+                                </span>
+                            @endif
+                        </a>
+                    </div>
+                    
+
                     {{-- Avatar / Login --}}
                     @auth
                         {{-- Dropdown User --}}
@@ -119,7 +139,7 @@
                         </div>
                     @endauth
                 </div>
-             </nav>
+    </nav>
 
     {{-- Main Content --}}
     <main class="flex-grow-1">
