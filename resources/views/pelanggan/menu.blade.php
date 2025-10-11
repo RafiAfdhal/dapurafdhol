@@ -4,14 +4,22 @@
     @include('layouts.pelanggan.cssmenu')
 
     {{-- Hero Section --}}
-    <section class="menu-hero">
-        <h2 class="section-title text-center">Menu Spesial Dapur Afdhol</h2>
+    <section class="menu-hero py-5 mb-4 bg-light">
+        <div class="container">
+            <h1 class="section-title text-center mb-4 display-4 fw-bold text-warning">
+                Menu Spesial Dapur Afdhol
+            </h1>
+        
 
         {{-- Search Bar --}}
-        <form action="{{ route('pelanggan.menu') }}" method="GET" class="search-form mt-3 d-flex justify-content-center">
-            <input type="text" name="search" class="form-control search-input w-50" placeholder="Cari menu favorit Anda..."
-                value="{{ request('search') }}">
-            <button type="submit" class="btn btn-search ms-2">Cari</button>
+        <form action="{{ route('pelanggan.menu') }}" method="GET" class="search-form mx-auto" style="max-width: 600px;">
+            <div class="input-group shadow-sm rounded-pill overflow-hidden">
+                <input type="text" name="search" class="form-control border-0 py-3 ps-4 search-input"
+                    placeholder="Cari menu favorit Anda..." value="{{ request('search') }}" aria-label="Cari menu">
+                <button type="submit" class="btn btn-primary px-4 btn-search">
+                    <i class="bi bi-search me-1"></i> Cari
+                </button>
+            </div>
         </form>
     </section>
 
