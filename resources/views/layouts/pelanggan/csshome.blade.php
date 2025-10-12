@@ -447,4 +447,25 @@
           position: relative;
           z-index: 2;
       }
+
+      /* Pastikan hero responsif di HP */
+      @media (max-width: 767px) {
+          .hero-section-showcase {
+              text-align: center;
+              padding: 2rem 0;
+          }
+
+          .hero-section-showcase h1 {
+              font-size: 1.9rem;
+          }
+
+          .hero-section-showcase p {
+              font-size: 1rem;
+          }
+
+          .hero-section-showcase img {
+              width: 80%;
+              margin: 0 auto;
+          }
+      }
   </style>
