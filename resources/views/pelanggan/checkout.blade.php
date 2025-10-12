@@ -7,34 +7,48 @@
 
     <div class="container py-4">
         <div class="row justify-content-center">
-            <!-- Detail Menu -->
+
+            <!-- 🧾 DETAIL MENU -->
             <div class="col-md-5 mb-4">
-                <div class="card shadow-sm checkout-menu-card position-relative">
+                <div class="card shadow-lg border-0 rounded-4 overflow-hidden position-relative bg-light-brown">
+
                     <!-- 🔙 Tombol Kembali di dalam gambar -->
                     <a href="{{ url()->previous() }}"
-                        class="btn btn-outline-warning position-absolute top-0 start-0 m-3 rounded-circle shadow-sm"
-                        style="z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
-                        <i class="bi bi-arrow-left"></i>
+                        class="btn btn-outline-light position-absolute top-0 start-0 m-3 rounded-circle shadow"
+                        style="z-index: 10; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background-color: rgba(255, 255, 255, 0.8); border: none;">
+                        <i class="bi bi-arrow-left text-dark"></i>
                     </a>
+
+                    <!-- 📸 Gambar Menu -->
                     @if ($menu->gambar)
-                        <img src="{{ asset('storage/' . $menu->gambar) }}" class="card-img-top" alt="{{ $menu->nama }}">
+                        <img src="{{ asset('storage/' . $menu->gambar) }}" class="card-img-top" alt="{{ $menu->nama }}"
+                            style="object-fit: cover; height: 260px;">
                     @else
-                        <img src="https://via.placeholder.com/400x250/FFB300/3E2723?text=No+Image" class="card-img-top">
+                        <img src="https://via.placeholder.com/400x250/FFB300/3E2723?text=No+Image" class="card-img-top"
+                            style="object-fit: cover; height: 260px;">
                     @endif
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ $menu->nama }}</h5>
-                        <p class="card-text text-warning fs-5" id="harga-text" data-harga="{{ $menu->harga }}">
+
+                    <!-- 💬 Isi Card -->
+                    <div class="card-body text-center bg-white rounded-bottom-4 py-4">
+                        <h4 class="card-title fw-bold text-darkest-brown mb-2">{{ $menu->nama }}</h4>
+
+                        <!-- 💬 Deskripsi Menu -->
+                        <p class="text-muted px-5" style="font-size: 1.0rem;">
+                            {{ $menu->deskripsi ?? 'Tidak ada deskripsi untuk menu ini.' }}
+                        </p>
+
+
+                        <p class="card-text text-success fs-5" id="harga-text" data-harga="{{ $menu->harga }}">
                             Rp {{ number_format($menu->harga, 0, ',', '.') }} / porsi
                         </p>
 
-                        <!-- Tambahkan subtotal total harga -->
-                        <p class="fw-bold mt-2 text-success fs-5" id="total-harga">
+                        <!-- 💰 Total Harga -->
+                        <p class="fw-bold mt-2 text-brown fs-5" id="total-harga">
                             Total: Rp {{ number_format($menu->harga, 0, ',', '.') }}
                         </p>
 
-
                         <!-- ⭐ Rating -->
-                        <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+                        <div class="d-flex justify-content-center align-items-center gap-2 mb-3">
                             <div class="d-flex fs-5 text-warning">
                                 @php
                                     $avgRating = $menu->reviews->avg('rating') ?? 0;
@@ -53,18 +67,21 @@
                         </p>
 
                         <!-- 🔗 Link ulasan -->
-                        <a href="{{ route('pelanggan.ulasan', $menu->id) }}" class="btn btn-sm btn-warning mb-3">
+                        <a href="{{ route('pelanggan.ulasan', $menu->id) }}"
+                            class="btn btn-warning text-dark fw-semibold mb-3 px-4 rounded-pill shadow-sm">
                             <i class="bi bi-chat-dots"></i> Lihat Ulasan
                         </a>
 
-                        <!-- Jumlah Pesanan -->
+                        <!-- 🔢 Jumlah Pesanan -->
                         <div class="d-flex justify-content-center align-items-center gap-2">
-                            <button class="btn btn-outline-secondary" id="minus-qty" type="button">
+                            <button class="btn btn-outline-secondary rounded-circle" id="minus-qty" type="button"
+                                style="width: 40px; height: 40px;">
                                 <i class="bi bi-dash"></i>
                             </button>
-                            <input type="number" id="quantity" class="form-control text-center" value="1"
-                                min="1" max="{{ $menu->stok }}" style="width: 60px;" readonly>
-                            <button class="btn btn-outline-secondary" id="plus-qty" type="button">
+                            <input type="number" id="quantity" class="form-control text-center border-0 bg-light"
+                                value="1" min="1" max="{{ $menu->stok }}" style="width: 60px;" readonly>
+                            <button class="btn btn-outline-secondary rounded-circle" id="plus-qty" type="button"
+                                style="width: 40px; height: 40px;">
                                 <i class="bi bi-plus"></i>
                             </button>
                         </div>
@@ -72,7 +89,7 @@
                 </div>
             </div>
 
-            <!-- Form Checkout -->
+            <!-- 🛒 FORM CHECKOUT -->
             <div class="col-md-7">
                 <div class="card shadow-sm">
                     <div class="card-header bg-warning text-dark fw-bold">
@@ -96,7 +113,6 @@
                                     value="{{ old('no_telepon', Auth::user()->no_telepon ?? '') }}" required>
                             </div>
 
-
                             <div class="mb-3">
                                 <label class="form-label">Alamat Lengkap</label>
                                 <textarea name="alamat" rows="3" class="form-control" required></textarea>
@@ -118,8 +134,6 @@
                                 </select>
                             </div>
 
-                            <!-- Pilihan penagtaran -->
-
                             <div class="mb-3">
                                 <label class="form-label">Metode Pengantaran</label>
                                 <select name="metode_pengantaran" class="form-select" required>
@@ -129,13 +143,11 @@
                                 </select>
                             </div>
 
-
                             <button type="submit" class="btn btn-warning w-100 fw-bold">
                                 <i class="bi bi-bag-check"></i> Pesan Sekarang
                             </button>
                         </form>
 
-                        <!-- 🔥 Tambah ke Keranjang -->
                         <form action="{{ route('pelanggan.cart.add', $menu->id) }}" method="POST">
                             @csrf
                             <input type="hidden" id="jumlah_cart" name="jumlah" value="1">
@@ -146,6 +158,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 @endsection
@@ -163,10 +176,8 @@
             const jumlahCheckout = document.getElementById("jumlah_checkout");
             const jumlahCart = document.getElementById("jumlah_cart");
 
-            // ambil harga asli dari data attribute
             const hargaPerPorsi = parseInt(hargaText.dataset.harga);
 
-            // fungsi update total harga
             function updateTotal() {
                 const qty = parseInt(qtyInput.value);
                 const total = hargaPerPorsi * qty;
@@ -183,7 +194,6 @@
                 plusBtn.addEventListener("click", function() {
                     let currentValue = parseInt(qtyInput.value);
                     let max = parseInt(qtyInput.getAttribute("max"));
-
                     if (currentValue < max) {
                         qtyInput.value = currentValue + 1;
                         syncJumlah();
@@ -193,7 +203,6 @@
                 minusBtn.addEventListener("click", function() {
                     let currentValue = parseInt(qtyInput.value);
                     let min = parseInt(qtyInput.getAttribute("min"));
-
                     if (currentValue > min) {
                         qtyInput.value = currentValue - 1;
                         syncJumlah();
@@ -201,7 +210,6 @@
                 });
             }
 
-            // inisialisasi awal
             updateTotal();
         });
     </script>
