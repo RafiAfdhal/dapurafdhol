@@ -5,7 +5,14 @@
 
     <div class="container py-5">
         <div class="cart-container">
-            <h5 class="mb-4">Daftar Pesanan Anda</h5>
+
+            <!-- 🔙 Tombol kembali di atas -->
+            <div class="d-flex justify-content-center align-items-center mb-4 position-relative">
+                <a href="{{ route('pelanggan.menu') }}" class="btn btn-outline-danger position-absolute start-0">
+                    <i class="bi bi-arrow-left-circle"></i>
+                </a>
+                <h5 class="mb-0 fw-bold text-dark text-center">Daftar Pesanan Anda</h5>
+            </div>
 
             @if (session('success'))
                 <div class="alert alert-success">{{ session('success') }}</div>
@@ -16,12 +23,12 @@
 
             @if ($cart && $cart->items->count() > 0)
                 @foreach ($cart->items as $item)
-                    <div class="cart-item" data-item-id="{{ $item->id }}">
+                    <div class="cart-item shadow-sm" data-item-id="{{ $item->id }}">
                         <img src="{{ asset('storage/' . $item->menu->gambar) }}" alt="{{ $item->menu->nama }}"
-                            class="item-image">
+                            class="item-image rounded-3">
 
                         <div class="item-details w-100">
-                            <span class="item-name">{{ $item->menu->nama }}</span>
+                            <span class="item-name fw-semibold">{{ $item->menu->nama }}</span>
 
                             <div class="item-price-info">
                                 Harga: <strong>Rp {{ number_format($item->harga, 0, ',', '.') }}</strong>
@@ -40,7 +47,8 @@
                             </div>
 
                             <div class="item-price-info subtotal mt-2">
-                                Subtotal: <strong class="subtotal-value">
+                                Subtotal:
+                                <strong class="subtotal-value text-success">
                                     Rp {{ number_format($item->jumlah * $item->harga, 0, ',', '.') }}
                                 </strong>
                             </div>
@@ -51,40 +59,45 @@
                                 onsubmit="return confirm('Hapus item ini?')">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="delete-item-btn"><i class="bi bi-trash"></i></button>
+                                <button type="submit" class="delete-item-btn text-danger">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
                             </form>
                         </div>
                     </div>
                 @endforeach
 
                 <!-- Bagian total & tombol -->
-                <div class="d-flex justify-content-between align-items-center mt-4">
-                    <h5 class="mb-0">Total: <span id="cart-total">Rp
-                            {{ number_format($cart->items->sum(fn($i) => $i->jumlah * $i->harga), 0, ',', '.') }}</span>
+                <div class="d-flex justify-content-between align-items-center mt-4 border-top pt-3">
+                    <h5 class="mb-0 fw-bold text-dark">
+                        Total: <span id="cart-total" class="text-success">
+                            Rp {{ number_format($cart->items->sum(fn($i) => $i->jumlah * $i->harga), 0, ',', '.') }}
+                        </span>
                     </h5>
-                    <a href="{{ route('pelanggan.checkout-cart') }}" class="btn btn-warning">
+                    <a href="{{ route('pelanggan.checkout-cart') }}" class="btn btn-warning btn-lg shadow-sm">
                         <i class="bi bi-bag-check-fill"></i> Pesan Sekarang
                     </a>
                 </div>
-
-                <!-- Tombol kembali ke menu -->
-                <div class="text-center mt-3">
-                    <a href="{{ route('pelanggan.menu') }}" class="btn btn-danger">
-                        <i class="bi bi-arrow-left"></i> Kembali ke Menu
-                    </a>
-                </div>
             @else
-                <div class="empty-cart-message">
-                    <i class="bi bi-cart-x"></i>
-                    <p>Keranjang belanja Anda kosong. <br> Ayo, temukan hidangan lezat favoritmu!</p>
-                    <a href="{{ route('pelanggan.menu') }}" class="empty-cart-btn">Mulai Belanja Sekarang!</a>
+                <div class="empty-cart-container text-center py-5">
+                    <div class="empty-cart-illustration mx-auto mb-4">
+                        <i class="bi bi-cart-x-fill text-warning" style="font-size: 4rem;"></i>
+                    </div>
+                    <h4 class="fw-bold text-dark">Keranjang Masih Kosong</h4>
+                    <p class="text-muted mt-2 mb-4">
+                        Belum ada makanan di keranjangmu.<br>
+                        Yuk, pilih menu lezat favoritmu hari ini!
+                    </p>
+                    <a href="{{ route('pelanggan.menu') }}" class="btn btn-warning btn-lg px-4 shadow-sm">
+                        <i class="bi bi-bag-fill me-2"></i> Lihat Menu
+                    </a>
                 </div>
             @endif
         </div>
     </div>
 
 @endsection
-{{-- Script untuk update jumlah via AJAX --}}
+
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -102,8 +115,6 @@
                             action
                         })
                     })
-
-
                     .then(res => res.json())
                     .then(data => {
                         if (data.success) {
