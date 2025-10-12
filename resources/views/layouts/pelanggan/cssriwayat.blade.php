@@ -211,4 +211,87 @@
             transform: translateX(0);
         }
     }
+
+    /* 🌸 Background utama halaman checkout */
+    body {
+        background-color: #FBE9E7 !important;
+    }
+
+    /* 🌿 Warna utama */
+    :root {
+        --soft-bg: #FBE9E7;
+        --accent: #8DBA9C;
+        --brown-dark: #3E2723;
+    }
+
+    /* 🌸 Latar belakang lembut */
+    body {
+        background-color: var(--soft-bg);
+    }
+
+    /* 🧾 Card utama */
+    .card {
+        border-radius: 18px;
+        background-color: #fffdfb;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        border: none;
+    }
+
+    /* 🪄 Header tabel */
+    .table-warning {
+        background-color: #FFD180 !important;
+    }
+
+    /* 🌟 Tombol kecil */
+    .btn-sm {
+        border-radius: 8px;
+        transition: 0.2s ease;
+    }
+
+    .btn-sm:hover {
+        transform: scale(1.05);
+    }
+
+    /* 📱 Responsif: ubah tabel jadi card di HP */
+    @media (max-width: 768px) {
+        table.table thead {
+            display: none;
+        }
+
+        table.table,
+        table.table tbody,
+        table.table tr,
+        table.table td {
+            display: block;
+            width: 100%;
+        }
+
+        table.table tr {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1rem;
+            padding: 1rem;
+        }
+
+        table.table td {
+            text-align: left !important;
+            padding: 6px 0;
+        }
+
+        table.table td::before {
+            content: attr(data-label);
+            font-weight: 600;
+            color: var(--brown-dark);
+            display: block;
+            margin-bottom: 2px;
+        }
+    }
+
+    /* ✨ Efek badge status */
+    .badge {
+        font-size: 0.85rem;
+        padding: 6px 10px;
+        border-radius: 10px;
+    }
 </style>
