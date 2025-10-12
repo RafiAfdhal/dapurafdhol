@@ -3,21 +3,21 @@
 @section('content')
     @include('layouts.pelanggan.csshome')
 
-    <section class="hero-section-showcase d-flex align-items-center">
+    <section class="hero-section-showcase d-flex align-items-center py-5">
         <div class="container">
             <div class="row align-items-center justify-content-between w-100">
 
                 {{-- Kolom Kiri: Teks dan Tombol --}}
-                <div class="col-md-7 order-md-1 order-2" data-aos="fade-right" data-aos-delay="100">
+                <div class="col-lg-7 col-md-7 col-12 order-md-1 order-2 text-center text-md-start" data-aos="fade-right" data-aos-delay="100">
                     <h1 class="fw-bold">Spesial Makanan <br><span class="text-white">Dapur Afdhol</span></h1>
-                    <p>
+                    <p class="mt-3">
                         Rasakan kelezatan otentik dari hidangan khas Dapur Afdhol, disajikan dengan cita rasa premium
                         dari dapur kami. Kami mengantarkan pengalaman kuliner tak terlupakan langsung ke depan pintu Anda
                         setiap hari.
                     </p>
 
                     {{-- Tombol Aksi --}}
-                    <div class="d-flex flex-column flex-sm-row gap-3 mt-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="d-flex flex-column flex-sm-row justify-content-center justify-content-md-start gap-3 mt-4" data-aos="fade-up" data-aos-delay="300">
                         <a href="{{ url('pelanggan/menu') }}" class="btn btn-hero-primary">
                             <i class="bi bi-cart-fill me-2"></i> PESAN SEKARANG
                         </a>
@@ -28,9 +28,9 @@
                 </div>
 
                 {{-- Kolom Kanan: Gambar Utama --}}
-                <div class="col-md-5 order-md-2 order-1 text-center mb-4 mb-md-0" data-aos="fade-left" data-aos-delay="200">
+                <div class="col-lg-5 col-md-5 col-12 order-md-2 order-1 text-center mb-4 mb-md-0" data-aos="fade-left" data-aos-delay="200">
                     <img src="{{ asset('img/nasi goreng special.jpg') }}" alt="Mie Ayam Jamur"
-                        class="img-fluid hero-image-3d">
+                        class="img-fluid hero-image-3d w-75 w-md-100">
                 </div>
 
             </div>
@@ -38,21 +38,19 @@
     </section>
 
 
-    <section class="gallery-section" id="gallery">
+    <section class="gallery-section py-5" id="gallery">
         <div class="container">
-            <h2 data-aos="fade-down">Menu Unggulan Kami</h2>
+            <h2 class="text-center mb-5" data-aos="fade-down">Menu Unggulan Kami</h2>
 
-            <div class="row g-4">
-
+            <div class="row g-4 justify-content-center">
                 {{-- Kartu Menu 1: Nasi Goreng Spesial --}}
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="menu-card">
-                        <img src="{{ asset('img/nasi goreng special.jpg') }}" class="card-img-top"
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10" data-aos="fade-up" data-aos-delay="100">
+                    <div class="menu-card h-100">
+                        <img src="{{ asset('img/nasi goreng special.jpg') }}" class="card-img-top img-fluid"
                             alt="Nasi Goreng Spesial">
                         <div class="menu-card-body">
                             <h5>Nasi Goreng Spesial</h5>
-                            <p class="mb-2">Nasi goreng pedas dengan ayam, telur, dan bumbu rempah rahasia. Selalu jadi
-                                favorit!</p>
+                            <p class="mb-2">Nasi goreng pedas dengan ayam, telur, dan bumbu rempah rahasia. Selalu jadi favorit!</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="price-tag">Rp 15.000</span>
                             </div>
@@ -61,13 +59,12 @@
                 </div>
 
                 {{-- Kartu Menu 2: Sate Ayam Madura --}}
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="menu-card">
-                        <img src="{{ asset('img/sate ayam.jpg') }}" class="card-img-top" alt="Sate Ayam Madura">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10" data-aos="fade-up" data-aos-delay="200">
+                    <div class="menu-card h-100">
+                        <img src="{{ asset('img/sate ayam.jpg') }}" class="card-img-top img-fluid" alt="Sate Ayam Madura">
                         <div class="menu-card-body">
                             <h5>Sate Ayam Madura</h5>
-                            <p class="mb-2">Daging ayam pilihan yang dipanggang sempurna dengan saus kacang kental dan
-                                legit.</p>
+                            <p class="mb-2">Daging ayam pilihan yang dipanggang sempurna dengan saus kacang kental dan legit.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="price-tag">Rp 10.000</span>
                             </div>
@@ -75,21 +72,19 @@
                     </div>
                 </div>
 
-                {{-- Kartu Menu 3: Mie Ayam Jamur (Menu Ikonik) --}}
-                <div class="col-lg-4 col-md-6 offset-lg-0 offset-md-3" data-aos="fade-up" data-aos-delay="300">
-                    <div class="menu-card">
-                        <img src="{{ asset('img/thai tea.jpg') }}" class="card-img-top" alt="Mie Ayam Jamur">
+                {{-- Kartu Menu 3: Thai Tea --}}
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-10" data-aos="fade-up" data-aos-delay="300">
+                    <div class="menu-card h-100">
+                        <img src="{{ asset('img/thai tea.jpg') }}" class="card-img-top img-fluid" alt="Thai Tea">
                         <div class="menu-card-body">
                             <h5>Thai Tea</h5>
-                            <p class="mb-2">Thai Tea khas Thailand yang menyegarkan dan nikmat, bikin tenggorokan segar.
-                            </p>
+                            <p class="mb-2">Thai Tea khas Thailand yang menyegarkan dan nikmat, bikin tenggorokan segar.</p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <span class="price-tag">Rp 8.000</span>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
 
             {{-- CTA untuk Melihat Semua Menu --}}
