@@ -82,7 +82,7 @@
 
     /* Wrapper utama */
     .checkout-wrapper {
-        background-color: #fff8e1;
+        background-color: #FBE9E7;
         border-radius: 12px;
         padding: 20px;
     }
@@ -266,5 +266,8 @@
         font-weight: 600;
     }
 
-    
+    /* 🌸 Background utama halaman checkout */
+    body {
+        background-color: #FBE9E7 !important;
+    }
 </style>
