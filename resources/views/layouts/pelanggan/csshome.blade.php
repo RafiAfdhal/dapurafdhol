@@ -468,4 +468,80 @@
               margin: 0 auto;
           }
       }
+
+      /* === ANIMASI CEPAT HERO SECTION === */
+      .hero-section-showcase {
+          opacity: 0;
+          transform: translateY(20px);
+          animation: fadeInBackground 0.8s ease forwards;
+      }
+
+      /* Teks Judul */
+      .hero-section-showcase h1 {
+          opacity: 0;
+          transform: translateY(15px);
+          animation: fadeInUp 0.6s ease forwards;
+          animation-delay: 0.3s;
+      }
+
+      /* Paragraf Deskripsi */
+      .hero-section-showcase p {
+          opacity: 0;
+          transform: translateY(15px);
+          animation: fadeInUp 0.6s ease forwards;
+          animation-delay: 0.5s;
+      }
+
+      /* Tombol */
+      .hero-section-showcase .btn {
+          opacity: 0;
+          transform: translateY(10px);
+          animation: fadeInUp 0.6s ease forwards;
+          animation-delay: 0.7s;
+      }
+
+      /* Gambar */
+      .hero-section-showcase img {
+          opacity: 0;
+          transform: scale(0.95);
+          animation: fadeZoomIn 0.7s ease forwards;
+          animation-delay: 0.9s;
+      }
+
+      /* Keyframes */
+      @keyframes fadeInBackground {
+          from {
+              opacity: 0;
+              transform: scale(1.03);
+          }
+
+          to {
+              opacity: 1;
+              transform: scale(1);
+          }
+      }
+
+      @keyframes fadeInUp {
+          from {
+              opacity: 0;
+              transform: translateY(15px);
+          }
+
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      @keyframes fadeZoomIn {
+          from {
+              opacity: 0;
+              transform: scale(0.95);
+          }
+
+          to {
+              opacity: 1;
+              transform: scale(1);
+          }
+      }
   </style>
