@@ -270,4 +270,9 @@
             transform: translateY(0);
         }
     }
+
+    /* 🌸 Background utama halaman checkout */
+    body {
+        background-color: #FBE9E7 !important;
+    }
 </style>

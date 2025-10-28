@@ -39,26 +39,19 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            @php
-                                $user = auth()->user();
-                                $hasPhoto =
-                                    !empty($user->profile_photo_url) &&
-                                    file_exists(public_path($user->profile_photo_url));
-                                $firstLetter = strtoupper(substr($user->name, 0, 1));
-                            @endphp
-
-                            @if ($hasPhoto)
-                                <img src="{{ asset($user->profile_photo_url) }}" alt="Foto Profil"
-                                    class="rounded-circle me-2" width="32" height="32">
+                            @if (Auth::user()->profile_photo_path)
+                                {{-- Jika ada foto --}}
+                                <img src="{{ Auth::user()->profile_photo_url }}" alt="Avatar"
+                                    class="rounded-circle border" width="38" height="38"
+                                    style="object-fit: cover; margin-right: 8px;">
                             @else
-                                <div class="rounded-circle bg-warning text-dark d-flex justify-content-center align-items-center me-2"
-                                    style="width: 32px; height: 32px; font-weight: bold;">
-                                    {{ $firstLetter }}
+                                {{-- Jika tidak ada foto, tampilkan inisial --}}
+                                <div class="rounded-circle border bg-secondary text-white d-flex align-items-center justify-content-center"
+                                    style="width:38px; height:38px; font-weight:bold; margin-right: 8px;">
+                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                                 </div>
                             @endif
-
-                            <span>{{ $user->name }}</span>
-
+                            <span>{{ Auth::user()->name }}</span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li>

@@ -381,4 +381,78 @@
         color: #ff8a00;
         font-weight: 600;
     }
+
+    /* 🌿 Modern Checkout Card Style */
+    .modern-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    /* 📸 Gambar Menu */
+    .menu-img-wrapper {
+        flex-shrink: 0;
+    }
+
+    .menu-img-modern {
+        width: 100px;
+        height: 100px;
+        border-radius: 15px;
+        object-fit: cover;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu-img-modern:hover {
+        transform: scale(1.05);
+    }
+
+    /* 🍽️ Kartu Tiap Item */
+    .menu-item-card {
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+    }
+
+    .menu-item-card:hover {
+        background: #f8fdf9;
+        transform: translateY(-3px);
+    }
+
+    /* 🧮 Tombol Plus-Minus */
+    .btn-outline-success {
+        border-color: #8DBA9C;
+        color: #6B9479;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-success:hover {
+        background-color: #8DBA9C;
+        color: white;
+        border-color: #8DBA9C;
+    }
+
+    /* 💰 Total Harga */
+    .total-text {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #2E7D32 !important;
+    }
+
+    /* ✨ Responsif */
+    @media (max-width: 768px) {
+        .menu-img-modern {
+            width: 80px;
+            height: 80px;
+        }
+
+        .menu-item-card {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .subtotal-text {
+            margin-top: 10px;
+        }
+    }
 </style>

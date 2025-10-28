@@ -597,5 +597,42 @@
         animation-delay: 0.5s;
     }
 
-    /* Tombol Submit */
+    /* 🌸 Background utama halaman checkout */
+    body {
+        background-color: #FBE9E7 !important;
+    }
+
+
+    /* 🔹 Pastikan avatar tetap proporsional */
+    .card-body img.rounded-circle,
+    .card-body .rounded-circle {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        transition: 0.3s ease-in-out;
+    }
+
+    /* 🔹 Hover animasi ringan */
+    .card-body img.rounded-circle:hover {
+        transform: scale(1.03);
+    }
+
+    /* 🔹 Responsif untuk layar kecil */
+    @media (max-width: 768px) {
+
+        .card-body img.rounded-circle,
+        .card-body .rounded-circle {
+            width: 120px !important;
+            height: 120px !important;
+        }
+    }
+
+    @media (max-width: 576px) {
+
+        .card-body img.rounded-circle,
+        .card-body .rounded-circle {
+            width: 100px !important;
+            height: 100px !important;
+        }
+    }
 </style>

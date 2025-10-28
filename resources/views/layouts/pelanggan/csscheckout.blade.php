@@ -82,7 +82,7 @@
 
     /* Wrapper utama */
     .checkout-wrapper {
-        background-color: #fff8e1;
+        background-color: #FBE9E7;
         border-radius: 12px;
         padding: 20px;
     }
@@ -264,5 +264,10 @@
     .card-body .mb-3:focus-within label.form-label {
         color: #ff8a00;
         font-weight: 600;
+    }
+
+    /* 🌸 Background utama halaman checkout */
+    body {
+        background-color: #FBE9E7 !important;
     }
 </style>

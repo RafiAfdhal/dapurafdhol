@@ -301,4 +301,247 @@
               transform: scale(1);
           }
       }
+
+      /* ------------------- STYLES UNTUK HERO SECTION ------------------- */
+      .hero-section-showcase {
+          padding-top: 7rem;
+          padding-bottom: 5rem;
+          min-height: 80vh;
+      }
+
+      .hero-section-showcase h1 {
+          font-family: 'Playfair Display', serif;
+          font-size: 4rem;
+          font-weight: 800;
+          line-height: 1.1;
+          color: #FFB300;
+          /* Aksen Oranye */
+          text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+          margin-bottom: 1.5rem;
+      }
+
+      .hero-section-showcase p {
+          font-size: 1.1rem;
+          color: #FBE9E7;
+          margin-bottom: 2rem;
+          line-height: 1.7;
+      }
+
+      /* Styling Gambar Utama dengan Efek 3D */
+      .hero-image-3d {
+          border: 10px solid rgba(255, 179, 0, 0.9);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+          border-radius: 20px;
+          transform: rotate(-3deg);
+          /* Rotasi sedikit */
+          transition: transform 0.5s ease;
+      }
+
+      .hero-image-3d:hover {
+          transform: rotate(0deg) scale(1.03);
+      }
+
+      /* Tombol Utama */
+      .btn-hero-primary {
+          padding: 16px 40px;
+          font-size: 1.1rem;
+          font-weight: 700;
+          border-radius: 50px;
+          background-color: #FFB300;
+          color: #3E2723;
+          box-shadow: 0 5px 15px rgba(255, 179, 0, 0.5);
+      }
+
+      /* ------------------- STYLES UNTUK GALERI MAKANAN ------------------- */
+      .gallery-section {
+          background-color: #FBE9E7;
+          /* Latar belakang cokelat gelap */
+          padding: 5rem 0;
+          border-top: 5px solid #E67A00;
+      }
+
+      .gallery-section h2 {
+          font-family: 'Playfair Display', serif;
+          font-weight: 700;
+          color: #FFB300;
+          margin-bottom: 3rem;
+          text-align: center;
+      }
+
+      .menu-card {
+          background-color: #5D4037;
+          /* Latar belakang kartu yang lebih terang dari body */
+          border-radius: 15px;
+          overflow: hidden;
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+          height: 100%;
+          /* Memastikan tinggi kartu seragam */
+      }
+
+      .menu-card:hover {
+          transform: translateY(-8px);
+          box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      }
+
+      .menu-card img {
+          height: 200px;
+          object-fit: cover;
+          width: 100%;
+      }
+
+      .menu-card-body {
+          padding: 1.5rem;
+          text-align: left;
+      }
+
+      .menu-card-body h5 {
+          font-family: 'Poppins', sans-serif;
+          font-weight: 600;
+          color: #FBE9E7;
+          margin-bottom: 0.5rem;
+      }
+
+      .menu-card-body p {
+          color: #C0C0C0;
+          font-size: 0.9rem;
+          margin-bottom: 1rem;
+      }
+
+      .price-tag {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: #FFB300;
+      }
+
+      .hero-section-showcase {
+          position: relative;
+          width: 100vw;
+          /* pastikan lebar penuh */
+          margin-left: calc(-50vw + 50%);
+          /* trik agar benar-benar menempel ke kiri dan ke kanan */
+          background: url('{{ asset('img/background.jpg') }}') center center / cover no-repeat;
+          color: #fff;
+          padding: 100px 0;
+          border-radius: 0 0 60px 60px;
+          overflow: hidden;
+      }
+
+
+
+      /* Efek overlay gelap supaya teks tetap terbaca */
+      .hero-section-showcase::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: rgba(30, 30, 30, 0.5);
+          /* transparansi 50% */
+          z-index: 1;
+      }
+
+      /* Pastikan isi tampil di atas overlay */
+      .hero-section-showcase .row {
+          position: relative;
+          z-index: 2;
+      }
+
+      /* Pastikan hero responsif di HP */
+      @media (max-width: 767px) {
+          .hero-section-showcase {
+              text-align: center;
+              padding: 2rem 0;
+          }
+
+          .hero-section-showcase h1 {
+              font-size: 1.9rem;
+          }
+
+          .hero-section-showcase p {
+              font-size: 1rem;
+          }
+
+          .hero-section-showcase img {
+              width: 80%;
+              margin: 0 auto;
+          }
+      }
+
+      /* === ANIMASI CEPAT HERO SECTION === */
+      .hero-section-showcase {
+          opacity: 0;
+          transform: translateY(20px);
+          animation: fadeInBackground 0.8s ease forwards;
+      }
+
+      /* Teks Judul */
+      .hero-section-showcase h1 {
+          opacity: 0;
+          transform: translateY(15px);
+          animation: fadeInUp 0.6s ease forwards;
+          animation-delay: 0.3s;
+      }
+
+      /* Paragraf Deskripsi */
+      .hero-section-showcase p {
+          opacity: 0;
+          transform: translateY(15px);
+          animation: fadeInUp 0.6s ease forwards;
+          animation-delay: 0.5s;
+      }
+
+      /* Tombol */
+      .hero-section-showcase .btn {
+          opacity: 0;
+          transform: translateY(10px);
+          animation: fadeInUp 0.6s ease forwards;
+          animation-delay: 0.7s;
+      }
+
+      /* Gambar */
+      .hero-section-showcase img {
+          opacity: 0;
+          transform: scale(0.95);
+          animation: fadeZoomIn 0.7s ease forwards;
+          animation-delay: 0.9s;
+      }
+
+      /* Keyframes */
+      @keyframes fadeInBackground {
+          from {
+              opacity: 0;
+              transform: scale(1.03);
+          }
+
+          to {
+              opacity: 1;
+              transform: scale(1);
+          }
+      }
+
+      @keyframes fadeInUp {
+          from {
+              opacity: 0;
+              transform: translateY(15px);
+          }
+
+          to {
+              opacity: 1;
+              transform: translateY(0);
+          }
+      }
+
+      @keyframes fadeZoomIn {
+          from {
+              opacity: 0;
+              transform: scale(0.95);
+          }
+
+          to {
+              opacity: 1;
+              transform: scale(1);
+          }
+      }
   </style>

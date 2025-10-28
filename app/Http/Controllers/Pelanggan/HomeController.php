@@ -47,7 +47,7 @@ class HomeController extends Controller
         return view('pelanggan.menu', compact('menus', 'kategoris', 'kategori', 'search'));
     }
 
-  // =======================
+    // =======================
     // KONTAK
     // =======================
     public function kirimKontak(Request $request)
@@ -108,7 +108,7 @@ class HomeController extends Controller
         ]);
 
         return redirect()->route('pelanggan.menu')
-            ->with('success', 'Pesanan berhasil dibuat! Stok berkurang ' . $jumlah . ' porsi.');
+            ->with('success', 'Pesanan berhasil dibuat!' . $jumlah . ' porsi.');
     }
 
     // =======================
@@ -164,14 +164,31 @@ class HomeController extends Controller
             abort(403);
         }
 
+        // Update jumlah berdasarkan aksi
         if ($request->action === 'increase') {
             $item->update(['jumlah' => $item->jumlah + 1]);
         } elseif ($request->action === 'decrease' && $item->jumlah > 1) {
             $item->update(['jumlah' => $item->jumlah - 1]);
         }
 
+        // Hitung ulang total seluruh keranjang
+        $cart = $item->cart;
+        $total = $cart->items->sum(fn($i) => $i->jumlah * $i->harga);
+
+        // Jika request datang dari fetch (AJAX), kirim JSON balik
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'new_jumlah' => $item->jumlah,
+                'subtotal' => $item->jumlah * $item->harga,
+                'total' => $total
+            ]);
+        }
+
+        // Kalau bukan AJAX (misal user non-JS), tetap jalan normal
         return back()->with('success', 'Jumlah pesanan diperbarui.');
     }
+
 
     // Checkout dari keranjang
     public function checkoutCart()
@@ -323,7 +340,7 @@ class HomeController extends Controller
         // update status jadi cancel
         $order->update(['status' => 'cancel']);
 
-        return back()->with('success', 'Pesanan berhasil dibatalkan dan stok dikembalikan.');
+        return back()->with('success', 'Pesanan berhasil dibatalkan.');
     }
 
     public function destroypesanan(Order $order)
@@ -340,7 +357,7 @@ class HomeController extends Controller
         $order->items()->delete();
         $order->delete();
 
-        return back()->with('success', 'Pesanan berhasil dihapus tanpa menghapus laporan.');
+        return back()->with('success', 'Pesanan berhasil dihapus.');
     }
 
 
